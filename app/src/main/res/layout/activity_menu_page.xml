@@ -23,8 +23,8 @@
             app:flow_horizontalAlign="center"
             android:gravity="center"
             android:text="Enc-Dec"
-            android:textStyle="italic"
-            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:textSize="50sp"/>
 
         <TextView
