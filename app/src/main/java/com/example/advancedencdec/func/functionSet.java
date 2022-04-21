@@ -98,7 +98,7 @@ public class functionSet {
 
             }
         } catch (IOException e) {
-            Log.d("sky", e.getLocalizedMessage());
+            Log.e("sky", e.getLocalizedMessage());
         }
 
     }

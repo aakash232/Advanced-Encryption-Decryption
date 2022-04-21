@@ -20,7 +20,7 @@ public class encDec {
 
         try {
 
-            Log.d("sky", "filename rcvd: " + filename);
+            Log.d("sky", "ENC: filename rcvd: " + filename);
 
             //begin
             File sdcard = context.getExternalFilesDir(Environment.DIRECTORY_DCIM); //Environment.getExternalStorageDirectory();
@@ -61,26 +61,39 @@ public class encDec {
             //end
             Log.d("sky", "ENC: ALL done");
             Toast.makeText(context,"Encryption success",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"enc.end file stored at:"+dir,Toast.LENGTH_SHORT).show();
 
         } catch (IOException ex) {
-            Log.d("sky", "encrypt() error: " + ex.getLocalizedMessage());
+            Log.e("sky", "encrypt() error: " + ex.getLocalizedMessage());
         }
     }
 
-    public void decrypt(String filename, String extname, String dirname, String key) // decrypt function
+    public void decrypt(String filename, String key, Context context) // decrypt function
     {
         try {
-            File dir = new File("TempFiles");
-            if (!dir.exists())
-                dir.mkdir(); // make a folder(if donot exist) for temporary files which will b deleted at end
-            // of prg
 
-            RandomAccessFile fn = new RandomAccessFile(filename, "rw");
-            RandomAccessFile in = new RandomAccessFile("TempFiles/cp-temp.end", "rw");
-            RandomAccessFile out = new RandomAccessFile(dirname + "/dec." + extname, "rw");
+            Log.d("sky", "DEC: filename rcvd: " + filename);
+
+            //begin
+            File sdcard = context.getExternalFilesDir(Environment.DIRECTORY_DCIM); //Environment.getExternalStorageDirectory();
+            File dir = new File(sdcard.getAbsolutePath());
+
+            File dirTemp = new File(dir,"TempFiles");
+            if (!dirTemp.exists())
+                dirTemp.mkdir(); // make a folder(if do not exist) for temporary files which will b deleted at end
+            Log.d("sky", "DEC: stage 1 done");
+
+            RandomAccessFile fn = new RandomAccessFile(filename, "r");
+            RandomAccessFile in = new RandomAccessFile(dir+"/TempFiles/cp-temp.end", "rw");
+            String ext = "png"; //for images
+            RandomAccessFile out = new RandomAccessFile(dir + "/dec."+ext, "rw");
+            Log.d("sky", "DEC: stage 2 done");
 
             functionSet.shuffle(fn, in); // deshuffle
+            Log.d("sky", "DEC: stage 3 done");
+
             functionSet.rounds(in, out, key, shiftby, "Decrypting"); // xor
+            Log.d("sky", "DEC: stage 4 done");
 
             File f = new File("TempFiles/cp-temp.end");
             f.delete();
@@ -90,8 +103,13 @@ public class encDec {
             out.close();
             fn.close();
 
-        } catch (IOException e) {
-            System.out.println(e);
+            //end
+            Log.d("sky", "DEC: ALL done");
+            Toast.makeText(context,"Decryption success",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"File stored at:"+dir,Toast.LENGTH_SHORT).show();
+
+        } catch (IOException ex) {
+            Log.e("sky", "decrypt() error: " + ex.getLocalizedMessage());
         }
     }
 

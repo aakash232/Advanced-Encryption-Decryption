@@ -36,6 +36,7 @@ public class menuPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(menuPage.this,"Upload file for decryption",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(menuPage.this,decPage.class));
             }
         });
 
@@ -44,8 +45,8 @@ public class menuPage extends AppCompatActivity {
     }
 
     private void initViews() {
-        enc = (TextView) findViewById(R.id.menu_enc);
-        dec = (TextView) findViewById(R.id.menu_dec);
+        enc = findViewById(R.id.menu_enc);
+        dec = findViewById(R.id.menu_dec);
     }
 
 

@@ -41,7 +41,7 @@ public class encPage extends AppCompatActivity {
 
         initViews();
 
-        isStoragePermissionGranted();
+        //isStoragePermissionGranted();
 
         enc_upload.setOnClickListener(view -> showFileChooser());
 
@@ -68,7 +68,7 @@ public class encPage extends AppCompatActivity {
                     999);
         } catch (android.content.ActivityNotFoundException ex) {
             // Potentially direct the user with a Dialog
-            Log.d("sky", "upload error: : " + ex.getLocalizedMessage());
+            Log.e("sky", "upload error: : " + ex.getLocalizedMessage());
         }
     }
 
@@ -141,8 +141,8 @@ public class encPage extends AppCompatActivity {
     }
 
     private void initViews() {
-        enc_upload = (TextView) findViewById(R.id.enc_upload);
-        enc_image = (ImageView) findViewById(R.id.enc_image);
-        enc_stats = (TextView) findViewById(R.id.enc_stats);
+        enc_upload = findViewById(R.id.enc_upload);
+        enc_image = findViewById(R.id.enc_image);
+        enc_stats = findViewById(R.id.enc_stats);
     }
 }

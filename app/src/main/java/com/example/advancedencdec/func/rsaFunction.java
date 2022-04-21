@@ -145,7 +145,7 @@ public class rsaFunction {
             Log.d("sky", "Enkey written: " + file.getPath());
             Toast.makeText(context,"Encryption Key saved!",Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Log.d("sky", "File write error:" + e.getLocalizedMessage());
+            Log.e("sky", "File write error:" + e.getLocalizedMessage());
         }
     }
 
