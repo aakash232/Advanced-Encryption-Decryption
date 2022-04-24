@@ -30,7 +30,9 @@ public class encPage extends AppCompatActivity {
     private Uri mImageUri;
     private BigInteger m,Enkey;
 
+    //Public key (>10 length) 
     String key = "1234567891234654";
+    //TODO: Make the UI dynamic. Get input from user
 
     encDec obj = new encDec();
 
@@ -41,9 +43,9 @@ public class encPage extends AppCompatActivity {
 
         initViews();
 
-        //isStoragePermissionGranted();
-
+        //upload files (IMAGES)
         enc_upload.setOnClickListener(view -> showFileChooser());
+        //TODO: make upload diverse. All types.
 
         m = new BigInteger(key);
         // RSA-Encrypt
@@ -78,8 +80,9 @@ public class encPage extends AppCompatActivity {
             case 999:
                 if (resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-                    // Get the Uri of the selected file
+                    //get the Uri of the selected file
                     mImageUri = data.getData();
+  		            //fetch real path
                     String realPath = ImageFilePath.getPath(encPage.this, data.getData());
                     //display image
                     Glide.with(encPage.this)
