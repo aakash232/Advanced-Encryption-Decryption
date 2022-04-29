@@ -23,7 +23,7 @@ public class decPage extends AppCompatActivity {
     private EditText dec_enterKey;
     private String key="";
 
-    encDec obj = new encDec();
+    encDec obj = new encDec(decPage.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

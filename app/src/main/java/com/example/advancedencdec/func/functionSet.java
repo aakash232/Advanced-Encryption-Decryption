@@ -1,6 +1,12 @@
 package com.example.advancedencdec.func;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
+
+import com.example.advancedencdec.R;
+import com.example.advancedencdec.ui.encPage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,9 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
+import java.util.Calendar;
 import java.util.Random;
 
 public class functionSet {
+
+    public static String funcData = "";
 
     public static String KeyGen(String key) // make a 200 byte key from user key
     {
@@ -76,6 +85,7 @@ public class functionSet {
                 percent = percentage(p, incount);
                 p++;
                 System.out.println("[" + round + "]" + " " + mode + " Characters to File:" + percent + "%");
+                //funcData=funcData.concat("\n"+("[" + round + "]" + " " + mode + " Characters to File:" + percent + "%"));
             }
         } catch (Exception ignored) {
 
@@ -123,10 +133,10 @@ public class functionSet {
         return key;
     }
 
-    public static void rounds(RandomAccessFile in, RandomAccessFile out, String key, int shiftby, String mode) // round
+    public static String rounds(RandomAccessFile in, RandomAccessFile out, String key, int shiftby, String mode) // round
     // Encryption/decryption
     {
-        functionSet obj = new functionSet();
+
 
         int round = 0, ch = 0;
         String roundname = "";
@@ -140,8 +150,7 @@ public class functionSet {
                 + EstTime(in, 16) + " seconds (" + (EstTime(in, 16)) / 60
                 + " minutes)\n\t\tUse Same Mode for Decryption with which the File was ENcrypted!");
         System.out.println("=========================================================================");
-        if (obj.inscan.hasNextInt())
-            ch = obj.inscan.nextInt(); */
+       */
 
         //testing
         ch=1;
@@ -172,17 +181,23 @@ public class functionSet {
 
             if (i % 2 != 0) {
                 System.out.println("\t\t\tROUND--" + i);
+                funcData=funcData.concat("\nROUND--"+i+" : "+ Calendar.getInstance().getTime());
                 key = functionSet.shiftKey(key, shiftby);
                 functionSet.xor(in, out, key, mode, "Round-" + i);
             } else {
                 System.out.println("\t\t\tROUND--" + i);
+                funcData=funcData.concat("\nROUND--"+i+" : "+ Calendar.getInstance().getTime());
                 key = functionSet.shiftKey(key, shiftby);
                 functionSet.xor(out, in, key, mode, "Round-" + i);
             }
         }
         System.out.println("\t\t\t" + roundname + " Successfully Completed!");
+        funcData=funcData.concat("\n\t\t\t" + roundname + " Successfully Completed!");
+        return funcData;
 
     }
+
+
 
     public static double EstTime(RandomAccessFile inputfn, int rounds) {
 

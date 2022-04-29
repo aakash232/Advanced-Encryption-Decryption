@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,11 +32,11 @@ public class encPage extends AppCompatActivity {
     private Uri mImageUri;
     private BigInteger m,Enkey;
 
-    //Public key (>10 length) 
+    //Public key (>10 length)
     String key = "1234567891234654";
     //TODO: Make the UI dynamic. Get input from user
 
-    encDec obj = new encDec();
+    private final encDec obj = new encDec(encPage.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,8 @@ public class encPage extends AppCompatActivity {
                     Glide.with(encPage.this)
                             .load(mImageUri)
                             .into(enc_image);
+                    //update stats log
+                    enc_stats.append("\nFile path: "+realPath+"\n");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -147,5 +151,8 @@ public class encPage extends AppCompatActivity {
         enc_upload = findViewById(R.id.enc_upload);
         enc_image = findViewById(R.id.enc_image);
         enc_stats = findViewById(R.id.enc_stats);
+        //set textview scrollable
+        enc_stats.setMovementMethod(new ScrollingMovementMethod());
     }
+
 }
