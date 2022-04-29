@@ -2,6 +2,7 @@ package com.example.advancedencdec.ui;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -39,31 +40,28 @@ public class decPage extends AppCompatActivity {
 
         if(!enc.exists()){
             Log.e("sky", "enc.dec file not found");
-            dec_stat.setText("enc.dec file not found at:"+dir);
-            Toast.makeText(decPage.this,"Paste the enc.end file at:"+dir,Toast.LENGTH_SHORT).show();
+            dec_stat.append("\n\nERROR: enc.dec file not found!");
+            Toast.makeText(decPage.this,"\n\nPaste the enc.end file at:"+dir,Toast.LENGTH_SHORT).show();
         }
         else{
             Log.d("sky", "enc file found:" + enc.getAbsolutePath());
-            dec_stat.setText("enc.dec file found at:"+dir);
+            dec_stat.append("\n\nenc.dec file found at:"+dir);
             dec_enterKey.setVisibility(View.VISIBLE);
             dec_keyText.setVisibility(View.VISIBLE);
 
-            dec_keyText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(dec_enterKey.getText()!=null || !dec_enterKey.getText().equals("")){
-                        key = String.valueOf(dec_enterKey.getText());
-                        Log.d("sky", "key:" + key);
+            dec_keyText.setOnClickListener(view -> {
+                if(dec_enterKey.getText()!=null || !dec_enterKey.getText().equals("")){
+                    key = String.valueOf(dec_enterKey.getText());
+                    Log.d("sky", "key:" + key);
 
-                        BigInteger c = new BigInteger(key); // convert to BI
-                        BigInteger Deckey = rsaFunction.EncDec(c, rsaFunction.d, rsaFunction.n);
-                        Log.d("sky", "Deckey:" + Deckey);
+                    BigInteger c = new BigInteger(key); // convert to BI
+                    BigInteger Deckey = rsaFunction.EncDec(c, rsaFunction.d, rsaFunction.n);
+                    Log.d("sky", "Deckey:" + Deckey);
 
-                        key = Deckey.toString();
+                    key = Deckey.toString();
 
-                        Toast.makeText(decPage.this,"Decrypting file...",Toast.LENGTH_LONG).show();
-                        obj.decrypt(dir+"/enc.end", key, decPage.this);
-                    }
+                    Toast.makeText(decPage.this,"Decrypting file...",Toast.LENGTH_LONG).show();
+                    obj.decrypt(dir+"/enc.end", key, decPage.this);
                 }
             });
         }
@@ -72,7 +70,10 @@ public class decPage extends AppCompatActivity {
 
 
     private void initViews() {
-        dec_stat = findViewById(R.id.dec_stat);
+        dec_stat = findViewById(R.id.dec_stats);
+            dec_stat.setText("***** STATS LOG *****\n");
+            //set textview scrollable
+            dec_stat.setMovementMethod(new ScrollingMovementMethod());
         dec_enterKey = findViewById(R.id.dec_enterKey);
             dec_enterKey.setVisibility(View.INVISIBLE);
         dec_keyText = findViewById(R.id.dec_keyText);

@@ -151,8 +151,9 @@ public class encPage extends AppCompatActivity {
         enc_upload = findViewById(R.id.enc_upload);
         enc_image = findViewById(R.id.enc_image);
         enc_stats = findViewById(R.id.enc_stats);
-        //set textview scrollable
-        enc_stats.setMovementMethod(new ScrollingMovementMethod());
+            enc_stats.setText("***** STATS LOG *****\n");
+            //set textview scrollable
+            enc_stats.setMovementMethod(new ScrollingMovementMethod());
     }
 
 }

@@ -28,13 +28,15 @@ public class encDec {
 
     public void updateEncLog(String data){
         TextView txtView = (TextView) ((Activity)context).findViewById(R.id.enc_stats);
-        // append the new string
         txtView.append(data);
-        // find the amount we need to scroll.  This works by
-        // asking the TextView's internal layout for the position
-        // of the final line and then subtracting the TextView's height
         final int scrollAmount = txtView.getLayout().getLineTop(txtView.getLineCount()) - txtView.getHeight();
-        // if there is no need to scroll, scrollAmount will be <=0
+        txtView.scrollTo(0, Math.max(scrollAmount, 0));
+    }
+
+    public void updateDecLog(String data){
+        TextView txtView = (TextView) ((Activity)context).findViewById(R.id.dec_stats);
+        txtView.append(data);
+        final int scrollAmount = txtView.getLayout().getLineTop(txtView.getLineCount()) - txtView.getHeight();
         txtView.scrollTo(0, Math.max(scrollAmount, 0));
     }
 
@@ -71,7 +73,7 @@ public class encDec {
 
             functionSet.copyFile(filename, dir+"/TempFiles/cp-temp.end");// Faster FileCopy using File Channels
             //update stats log
-            updateEncLog("\n\t\t\tUpdating File channels...\nENC: stage 4 done\n\t\t\tStarting enc/dec rounds...");
+            updateEncLog("\n\t\t\tUpdating File channels...\nENC: stage 4 done\n\t\t\tStarting enc rounds...");
             Log.d("sky", "ENC: stage 4 done");
 
             //Estimating execution time
@@ -123,18 +125,33 @@ public class encDec {
             File dirTemp = new File(dir,"TempFiles");
             if (!dirTemp.exists())
                 dirTemp.mkdir(); // make a folder(if do not exist) for temporary files which will b deleted at end
+            //update stats log
+            updateDecLog("\n\n\t\t\tChecking files...\nDEC: stage 1 done");
             Log.d("sky", "DEC: stage 1 done");
 
             RandomAccessFile fn = new RandomAccessFile(filename, "r");
             RandomAccessFile in = new RandomAccessFile(dir+"/TempFiles/cp-temp.end", "rw");
             String ext = "png"; //for images
             RandomAccessFile out = new RandomAccessFile(dir + "/dec."+ext, "rw");
+            //update stats log
+            updateDecLog("\n\t\t\tCreating access files...\nDEC: stage 2 done");
             Log.d("sky", "DEC: stage 2 done");
 
             functionSet.shuffle(fn, in); // deshuffle
+            //update stats log
+            updateDecLog("\nDEC: stage 3 done");
             Log.d("sky", "DEC: stage 3 done");
 
-            functionSet.rounds(in, out, key, shiftby, "Decrypting"); // xor
+            //Estimating execution time
+            //update stats log
+            updateDecLog("\n\nFAST(2 Round Enc/Dec)\t\t--Estimated Time--\n" + EstTime(in, 2)
+                    + " seconds (" + (EstTime(in, 2)) / 60 + " minutes)\n");
+
+
+            String funcData = functionSet.rounds(in, out, key, shiftby, "Decrypting"); // xor
+            updateDecLog(funcData);
+            //update stats log
+            updateDecLog("\n\n\t\t\tUpdating File channels...\nDEC: stage 4 done\n\t\t\tStarting dec rounds...");
             Log.d("sky", "DEC: stage 4 done");
 
             File f = new File("TempFiles/cp-temp.end");
@@ -148,7 +165,8 @@ public class encDec {
             //end
             Log.d("sky", "DEC: ALL done");
             Toast.makeText(context,"Decryption success",Toast.LENGTH_SHORT).show();
-            Toast.makeText(context,"File stored at:"+dir,Toast.LENGTH_SHORT).show();
+            //update stats log
+            updateDecLog("\n\nDecryption success!\n\nFile stored at: "+dir);
 
         } catch (IOException ex) {
             Log.e("sky", "decrypt() error: " + ex.getLocalizedMessage());

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,17 +16,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/dec_stat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bubble1"
-            android:layout_margin="20dp"
-            android:text="Status"
+            android:text="Decryption Page"
             android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:padding="20dp"/>
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"/>
+
 
         <EditText
             android:id="@+id/dec_enterKey"
@@ -42,6 +39,22 @@
             android:text="Enter the Encrypted Private Key for the file: \n\n ::Next::"
             android:textColor="@color/black"
             android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/dec_stats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:text="***** STATS LOG *****\n"
+            android:scrollbars = "vertical"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:padding="20dp"/>
 
 
     </LinearLayout>

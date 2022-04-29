@@ -197,36 +197,6 @@ public class functionSet {
 
     }
 
-
-
-    public static double EstTime(RandomAccessFile inputfn, int rounds) {
-
-        // File input=new File(inputfn);
-        double bytes = 0;
-        try {
-            bytes = inputfn.length();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        double kb = bytes / 1024;
-
-        kb = kb * 100000;
-        kb = Math.round(kb);
-        kb = kb / 100000; // file size in kb with 5 decimal places only
-        double ests = (kb / 58.5) * rounds; // estimated seconds-->ANALYSIS=58.5kb take 1 sec
-        ests = ests * 100000;
-        ests = Math.round(ests);
-        ests = ests / 100000;
-
-        /*
-         * double estm=ests/60; //estimated minutes
-         * estm=estm*10000;
-         * estm=Math.round(estm);
-         * estm=estm/10000; //estminutes with only upto 5 decimal places
-         */
-        return ests;
-    }
-
     public static void copyFile(String source, String dest) throws IOException // using File channel=>faster method
     {
         File src = new File(source);
