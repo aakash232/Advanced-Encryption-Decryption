@@ -27,7 +27,7 @@ public class menuPage extends AppCompatActivity {
          enc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(menuPage.this,"Upload file for encryption",Toast.LENGTH_SHORT).show();
+                Toast.makeText(menuPage.this,"Encryption Mode Activated",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(menuPage.this,encPage.class));
             }
         });
@@ -35,7 +35,7 @@ public class menuPage extends AppCompatActivity {
         dec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(menuPage.this,"Upload file for decryption",Toast.LENGTH_SHORT).show();
+                Toast.makeText(menuPage.this,"Decryption Mode Activated",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(menuPage.this,decPage.class));
             }
         });

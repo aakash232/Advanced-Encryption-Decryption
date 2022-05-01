@@ -18,7 +18,6 @@ import java.io.RandomAccessFile;
 public class encDec {
 
     int flag = 0, shiftby = 2;
-    String key = "";
     double percent;
     Context context;
 
@@ -29,7 +28,7 @@ public class encDec {
     public void updateEncLog(String data){
         TextView txtView = (TextView) ((Activity)context).findViewById(R.id.enc_stats);
         txtView.append(data);
-        final int scrollAmount = txtView.getLayout().getLineTop(txtView.getLineCount()) - txtView.getHeight();
+        final int scrollAmount = txtView.getLayout().getLineTop(txtView.getLineCount()) - txtView.getHeight()+150;
         txtView.scrollTo(0, Math.max(scrollAmount, 0));
     }
 
@@ -58,7 +57,7 @@ public class encDec {
             updateEncLog("\n\n\t\t\tChecking files...\nENC: stage 1 done");
             Log.d("sky", "ENC: stage 1 done");
 
-            RandomAccessFile fn = new RandomAccessFile(filename, "r");
+            RandomAccessFile fn = new RandomAccessFile(filename,"r");
             RandomAccessFile in = new RandomAccessFile(dir+"/TempFiles/cp-temp.end", "rw"); // heads is the extension given
             //update stats log
             updateEncLog("\n\t\t\tCreating access files...\nENC: stage 2 done");
@@ -112,7 +111,7 @@ public class encDec {
         }
     }
 
-    public void decrypt(String filename, String key, Context context) // decrypt function
+    public void decrypt(String filename, String key, Context context, String extn) // decrypt function
     {
         try {
 
@@ -131,10 +130,10 @@ public class encDec {
 
             RandomAccessFile fn = new RandomAccessFile(filename, "r");
             RandomAccessFile in = new RandomAccessFile(dir+"/TempFiles/cp-temp.end", "rw");
-            String ext = "png"; //for images
-            RandomAccessFile out = new RandomAccessFile(dir + "/dec."+ext, "rw");
+            RandomAccessFile out = new RandomAccessFile(dir + "/dec."+extn, "rw");
             //update stats log
             updateDecLog("\n\t\t\tCreating access files...\nDEC: stage 2 done");
+            Log.d("sky", "DEC: out file:"+ dir + "/dec."+extn);
             Log.d("sky", "DEC: stage 2 done");
 
             functionSet.shuffle(fn, in); // deshuffle

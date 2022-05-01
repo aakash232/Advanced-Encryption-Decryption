@@ -1,12 +1,8 @@
 package com.example.advancedencdec.func;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
-import android.widget.TextView;
 
-import com.example.advancedencdec.R;
-import com.example.advancedencdec.ui.encPage;
+import android.util.Log;
+
 
 import java.io.File;
 import java.io.FileInputStream;

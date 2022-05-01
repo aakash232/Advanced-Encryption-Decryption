@@ -133,7 +133,7 @@ public class rsaFunction {
     public static void WriteEncKey(BigInteger Enkey, Context context) {
         Date dt = new Date();
         File sdcard = context.getExternalFilesDir(Environment.DIRECTORY_DCIM); //Environment.getExternalStorageDirectory();
-        File dir = new File(sdcard.getAbsolutePath()+"/text");
+        File dir = new File(sdcard.getAbsolutePath()+"/key");
         dir.mkdir();
         File file = new File(dir, "Enkey.txt");
         FileOutputStream os = null;

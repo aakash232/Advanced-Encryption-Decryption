@@ -11,18 +11,15 @@ import android.annotation.SuppressLint;
         import android.provider.DocumentsContract;
         import android.provider.MediaStore;
 
-//import android.provider.<span id="IL_AD11" class="IL_AD">MediaStore</span>;
-
 @SuppressLint("NewApi")
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class ImageFilePath {
 
     /**
-     * Method for return file path of Gallery image
-     *
-     * @param context
-     * @param uri
-     * @return path of the selected image file from gallery
+     * Method for return file path of Gallery image     *
+     * param: context
+     * param: uri
+     * return: path of the selected image file from gallery
      */
     static String nopath = "Select Video Only";
 
@@ -30,11 +27,8 @@ public class ImageFilePath {
     @SuppressLint("NewApi")
     public static String getPath(final Context context, final Uri uri) {
 
-        // check here to KITKAT or new version
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (DocumentsContract.isDocumentUri(context, uri)) {
 
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
@@ -53,7 +47,7 @@ public class ImageFilePath {
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"),
-                        Long.valueOf(id));
+                        Long.parseLong(id));
 
                 return getDataColumn(context, contentUri, null, null);
             }
