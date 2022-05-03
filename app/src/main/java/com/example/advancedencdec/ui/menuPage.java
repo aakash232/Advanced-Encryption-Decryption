@@ -23,7 +23,6 @@ public class menuPage extends AppCompatActivity {
         initViews();
 
         //Click functionality
-
          enc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,9 +38,6 @@ public class menuPage extends AppCompatActivity {
                 startActivity(new Intent(menuPage.this,decPage.class));
             }
         });
-
-
-
     }
 
     private void initViews() {
