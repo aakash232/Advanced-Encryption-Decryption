@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/menu_history"
+    android:icon="@drawable/ic_baseline_history_24"
+    android:title="History"/>
+    <item android:id="@+id/about"
+    android:icon="@drawable/ic_baseline_contact_support_24"
+    android:title="About Us"/>
+</menu>
