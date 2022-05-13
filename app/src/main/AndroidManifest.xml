@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AdvancedEncDec">
         <activity
+            android:name=".drawerOption.aboutUs"
+            android:exported="false" />
+        <activity
             android:name=".ui.encPage"
             android:exported="false" />
         <activity

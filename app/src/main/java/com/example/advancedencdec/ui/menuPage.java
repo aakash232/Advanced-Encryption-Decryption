@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.advancedencdec.R;
+import com.example.advancedencdec.drawerOption.aboutUs;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -51,6 +52,7 @@ public class menuPage extends AppCompatActivity {
                         break;
                     case R.id.about:
                         Toast.makeText(menuPage.this,"About us ",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(menuPage.this, aboutUs.class));
                         break;
                     default :
                         return true;
