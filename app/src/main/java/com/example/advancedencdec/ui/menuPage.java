@@ -2,11 +2,13 @@ package com.example.advancedencdec.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -27,6 +29,7 @@ public class menuPage extends AppCompatActivity {
     DrawerLayout layout;
     androidx.appcompat.widget.Toolbar toolbar;
     ActionBarDrawerToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +66,46 @@ public class menuPage extends AppCompatActivity {
 
         //Click functionality
          enc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(menuPage.this,"Encryption Mode Activated",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(menuPage.this,encPage.class));
-            }
-        });
+             @Override
+             public void onClick(View view) {
+                 DialogBox();
+
+             }
+
+             public void DialogBox() {
+                 String[] options = {"Message", "File"};
+                 AlertDialog.Builder builder = new AlertDialog.Builder(menuPage.this);
+                 builder.setTitle("Choose Type");
+                 builder.setSingleChoiceItems(options, 0, new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int which) {
+                         String selected = options[which];
+                         if (selected == options[1]) {
+                             Toast.makeText(menuPage.this, "encryption Mode Activated", Toast.LENGTH_SHORT).show();
+                             startActivity(new Intent(menuPage.this, encPage.class));
+
+                         }
+                     }
+                 });
+                 builder.setPositiveButton("submit", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int which) {
+
+
+                     }
+                 });
+                 builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int which) {
+
+                     }
+                 });
+
+                 builder.show();
+
+             }
+
+         });
 
         dec.setOnClickListener(new View.OnClickListener() {
             @Override
